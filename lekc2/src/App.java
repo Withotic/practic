@@ -71,30 +71,97 @@ public class App {
         System.out.println("Группировка по производителю:\n"+cars.stream().collect(Collectors.groupingBy(Car::getManuf)));
         System.out.println();
     }
+    static void Info(){
+        System.out.println("Введите цифру и нажмите enter для выбора:");
+        System.out.println("1. Добавить машину");
+        System.out.println("2. Найти машины производителя");
+        System.out.println("3. Вывести среднюю цену машин типа...");
+        System.out.println("4. Отсортировать по году выпуска");
+        System.out.println("5. Вывести статистику");
+        System.out.println("6. Автоматическая отладка программы");
+        System.out.println("0. Выход");
+    }
+
     static void Task5(){
+        Scanner scanner = new Scanner(System.in);
+
+        
         System.out.println("\nЗадание 5:");
         CarDealership cds = new CarDealership();
-        String toDebug="";
-        for(int i = 0;i<10;i++){
-            String vinn="";
-            for(int k=0;k<10;k++)
-                vinn+="qwertyuiopasdfghjklzxcvbnm1234567890".charAt(rnd.nextInt(36));
-            cds.AddCar(
-                vinn, 
-                new String[]{"Toyota","Mazda","BMW","Tesla","Audi"}[rnd.nextInt(5)], 
-                rnd.nextInt(2000,2026), 
-                rnd.nextInt(100000), 
-                rnd.nextDouble(1000,100000),
-                CarType.values()[rnd.nextInt(5)]);
-            toDebug=vinn;
+        Info();
+        String ss = scanner.nextLine();
+        while(!ss.equals("0"))
+        {
+            switch (ss) {
+                case "1":
+                    System.out.println("Введите несколько значений через пробел:");
+                    System.out.println("vin, производитель, год выпуска, пробег (int), цена (double), цифра от 1 до 5 означающая тип: SEDAN, SUV, HATCHBACK, COUPE, PICKUP");
+                    String[] sss = scanner.nextLine().split(" ");
+                    try {
+                    cds.AddCar(sss[0], sss[1], Integer.parseInt(sss[2]), Integer.parseInt(sss[3]), Double.parseDouble(sss[4]), CarType.values()[Integer.parseInt(sss[5])-1]);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка обработки, выход.\n");
+                    }
+                    break;
+            
+                case "2":
+                    System.out.println("Введите производителя:");
+                    ss = scanner.nextLine();
+                    System.out.println(cds.AllByManuf(ss));
+                    break;
+                    
+                case "3":
+                    System.out.println("Введите цифру от 1 до 5 означающую тип: SEDAN, SUV, HATCHBACK, COUPE, PICKUP");
+                    ss = scanner.nextLine();
+                    try {
+                    cds.AvgByType(CarType.values()[Integer.parseInt(ss)-1]);
+                    } catch (Exception e) {
+                        System.out.println("Ошибка обработки, выход.\n");
+                    }
+                    break;
+                    
+                case "4":
+                    System.out.println(cds.GetSortedByYears()); 
+                    break;
+                case "5":
+                    cds.ShowStat();
+                    break;
+                case "6":
+                    String toDebug="";
+                    for(int i = 0;i<10;i++){
+                        String vinn="";
+                        for(int k=0;k<10;k++)
+                            vinn+="qwertyuiopasdfghjklzxcvbnm1234567890".charAt(rnd.nextInt(36));
+                        cds.AddCar(
+                            vinn, 
+                            new String[]{"Toyota","Mazda","BMW","Tesla","Audi"}[rnd.nextInt(5)], 
+                            rnd.nextInt(2000,2026), 
+                            rnd.nextInt(100000), 
+                            rnd.nextDouble(1000,100000),
+                            CarType.values()[rnd.nextInt(5)]);
+                        toDebug=vinn;
+                        }
+                    System.out.println("\n1. Проверка дубликата vin:");
+                    cds.AddCar(toDebug, "Toyota", 0, 0, 0, null);
+                    System.out.println("\n2. Найти все машины указанного производителя:\n"+cds.AllByManuf("Toyota"));
+                    System.out.println("\n3. Вывести среднюю цену машин определённого типа: "+cds.AvgByType(CarType.SUV));
+                    System.out.println("\n4. Вернуть список машин, отсортированных по году выпуска:\n"+cds.GetSortedByYears());
+                    System.out.println("\n5. Статистика:");
+                    cds.ShowStat();
+                    break;
+                default:
+                    System.out.println("Повторите ввод");
+                    break;
             }
-        System.out.println("\nПроверка дубликата vin:");
-        cds.AddCar(toDebug, "Toyota", 0, 0, 0, null);
-        System.out.println("\nНайти все машины указанного производителя:\n"+cds.AllByManuf("Toyota"));
-        System.out.println("\nВывести среднюю цену машин определённого типа: "+cds.AvgByType(CarType.SUV));
-        System.out.println("\nВернуть список машин, отсортированных по году выпуска:\n"+cds.GetSortedByYears());
-        System.out.println("\nСтатистика:");
-        cds.ShowStat();
+            Info();
+            ss = scanner.nextLine();
+        }
+        scanner.close();
+
+        
+
+
+        
     }
     public static void main(String[] args) throws Exception {
         System.out.println();
