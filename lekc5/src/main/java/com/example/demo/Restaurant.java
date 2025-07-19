@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import java.math.BigDecimal;
-
 public class Restaurant {
     private static long cid=0;
     private long id;
@@ -29,6 +28,9 @@ public class Restaurant {
     public BigDecimal getRate() {
         return rate;
     }
+    public void setRate(BigDecimal rate){
+        this.rate=rate;
+    }
     public int getRateCount() {
         return rateCount;
     }
@@ -46,5 +48,12 @@ public class Restaurant {
         AvgCheq = avgCheq;
         this.rate = rate;
         id=cid++;
+    }
+    @Override
+    public String toString() {
+        return "Название: " + name +
+                    ", Тип: " + type +
+                    ", Средний чек: " + AvgCheq +
+                    ", Оценка: " + rate;
     }
 }

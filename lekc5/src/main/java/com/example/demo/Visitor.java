@@ -1,5 +1,4 @@
 package com.example.demo;
-
 public class Visitor {
     static long cid=0;
     private long id;

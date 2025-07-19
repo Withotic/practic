@@ -1,5 +1,4 @@
 package com.example.demo;
-
 public class Rating {
     private long idV;
     private long idR;
