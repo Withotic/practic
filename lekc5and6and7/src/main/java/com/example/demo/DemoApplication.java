@@ -1,21 +1,21 @@
 package com.example.demo;
 
-import java.math.BigDecimal;
+//import java.math.BigDecimal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+//import org.springframework.context.ConfigurableApplicationContext;
 
-import com.example.demo.service.RatingService;
-import com.example.demo.service.RestaurantService;
-import com.example.demo.service.VisitorService;
+//import com.example.demo.service.RatingService;
+//import com.example.demo.service.RestaurantService;
+//import com.example.demo.service.VisitorService;
 
 @SpringBootApplication
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
-
+		/*ConfigurableApplicationContext context =*/ SpringApplication.run(DemoApplication.class, args);
+/*
 		VisitorService visitorService = context.getBean(VisitorService.class);
         RestaurantService restaurantService = context.getBean(RestaurantService.class);
         RatingService ratingService = context.getBean(RatingService.class);
@@ -38,7 +38,7 @@ public class DemoApplication {
         for (Restaurant r : restaurantService.findAll()) {
             System.out.println(r);
         }
-		//context.close();
+		context.close();*/
 	}
 
 }

@@ -1,7 +1,13 @@
 package com.example.demo;
 
 import java.math.BigDecimal;
+
+import jakarta.persistence.*;
+
+@Entity
 public class Restaurant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String desc="";
@@ -45,6 +51,7 @@ public class Restaurant {
     public int getRateCount() {
         return rateCount;
     }
+    public Restaurant() {}
     public Restaurant(long id,String name, String desc, ResType type, double avgCheq, BigDecimal rate) {
         this.name = name;
         this.desc = desc;

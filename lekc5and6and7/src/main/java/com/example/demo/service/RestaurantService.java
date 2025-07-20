@@ -8,21 +8,18 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantService {
     private final RestaurantRepository repository;
-
+    private long count=0;
     public RestaurantService(RestaurantRepository repository) {
         this.repository = repository;
     }
 
     public void save(Restaurant restaurant) {
         repository.save(restaurant);
-    }
-
-    public void remove(Restaurant restaurant) {
-        repository.remove(restaurant);
     }
 
     public List<Restaurant> findAll() {
@@ -35,34 +32,29 @@ public class RestaurantService {
     }
 
     public RestauResponseDTO createFromDTO(RestauRequestDTO dto) {
-        Restaurant restaurant = new Restaurant(0, dto.getName(), dto.getDesc(), dto.getType(), dto.getAvgCheq(), BigDecimal.ZERO);
+        Restaurant restaurant = new Restaurant(count++, dto.getName(), dto.getDesc(), dto.getType(), dto.getAvgCheq(), BigDecimal.ZERO);
         repository.save(restaurant);
         return new RestauResponseDTO(restaurant.getId(), restaurant.getName(), restaurant.getDesc(), restaurant.getType(), restaurant.getAvgCheq(), restaurant.getRate());
     }
     public RestauResponseDTO patchRestaurant(long id, RestauRequestDTO dto) {
-        for (Restaurant restaurant : repository.findAll()) {
-            if (restaurant.getId() == id) {
-                    if (dto.getName() != null)
-                        restaurant.setName(dto.getName());
-                    if (dto.getDesc() != null) 
-                        restaurant.setDesc(dto.getDesc());
-                    if (dto.getType() != null)
-                        restaurant.setType(dto.getType());
-                    if (dto.getAvgCheq() != -1)
-                        restaurant.setAvgCheq(dto.getAvgCheq());
+        Optional<Restaurant> opt = repository.findById(id);
+        if (opt.isEmpty()) throw new RuntimeException("Ресторан не найден");
 
-                return new RestauResponseDTO(
-                        restaurant.getId(), restaurant.getName(),
-                        restaurant.getDesc(), restaurant.getType(),
-                        restaurant.getAvgCheq(), restaurant.getRate()
-                );
-            }
-        }
+        Restaurant restaurant = opt.get();
 
-        throw new RuntimeException("Ресторан не найден");
+        if (dto.getName() != null) restaurant.setName(dto.getName());
+        if (dto.getDesc() != null) restaurant.setDesc(dto.getDesc());
+        if (dto.getType() != null) restaurant.setType(dto.getType());
+        if (dto.getAvgCheq() != -1) restaurant.setAvgCheq(dto.getAvgCheq());
+
+        repository.save(restaurant);
+
+        return new RestauResponseDTO(
+                restaurant.getId(), restaurant.getName(),
+                restaurant.getDesc(), restaurant.getType(),
+                restaurant.getAvgCheq(), restaurant.getRate());
     }
     public void deleteById(long id) {
-        List<Restaurant> all = repository.findAll();
-        all.removeIf(r -> r.getId() == id);
+        repository.deleteById(id);
     }
 }

@@ -7,6 +7,7 @@ import com.example.demo.repository.VisitorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VisitorService {
@@ -17,7 +18,6 @@ public class VisitorService {
     }
 
     public void save(String name, byte age, boolean isFemale) {
-
         repository.save(new Visitor(count++,name, age, isFemale));
     }
 
@@ -25,9 +25,6 @@ public class VisitorService {
         repository.save(new Visitor(count++, age, isFemale));
     }
 
-    public void remove(Visitor visitor) {
-        repository.remove(visitor);
-    }
 
     public List<Visitor> findAll() {
         return repository.findAll();
@@ -61,8 +58,16 @@ public class VisitorService {
 
         throw new RuntimeException("Visitor not found");
     }
+
+    public Visitor save(Visitor visitor) {
+        return repository.save(visitor);
+    }
+
     public void deleteById(long id) {
-        List<Visitor> all = repository.findAll();
-        all.removeIf(v -> v.getId() == id);
+        repository.deleteById(id);
+    }
+
+    public Optional<Visitor> findById(long id) {
+        return repository.findById(id);
     }
 }

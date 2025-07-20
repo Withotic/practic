@@ -1,5 +1,11 @@
 package com.example.demo;
+
+import jakarta.persistence.*;
+
+@Entity
 public class Visitor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name="Anonymous";
     private byte age;
@@ -25,6 +31,7 @@ public class Visitor {
     public void setFemale(boolean isFemale) {
         this.isFemale = isFemale;
     }
+    public Visitor() {}
     public Visitor(long id,String name, byte age, boolean isFemale) {
         this.name = name;
         this.age = age;
