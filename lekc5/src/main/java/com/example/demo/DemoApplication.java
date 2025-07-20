@@ -20,11 +20,11 @@ public class DemoApplication {
         RestaurantService restaurantService = context.getBean(RestaurantService.class);
         RatingService ratingService = context.getBean(RatingService.class);
 
-        visitorService.save(new Visitor("Иван", (byte) 25, false));
-        visitorService.save(new Visitor((byte) 30, true));
+        visitorService.save("Иван", (byte) 25, false);
+        visitorService.save((byte) 30, true);
 
-        restaurantService.save(new Restaurant( "peperoni porfavore", "Итальянская кухня", ResType.Italian, 25.0, BigDecimal.ZERO));
-        restaurantService.save(new Restaurant("терияки", ResType.Chinese, 18.5, BigDecimal.ZERO));
+        restaurantService.save(new Restaurant( 0,"peperoni porfavore", "Итальянская кухня", ResType.Italian, 25.0, BigDecimal.ZERO));
+        restaurantService.save(new Restaurant(1,"терияки", ResType.Chinese, 18.5, BigDecimal.ZERO));
 
         ratingService.save(new Rating(0, 0, 5, "Отлично!"));
         ratingService.save(new Rating(1, 1, 4));
@@ -38,7 +38,7 @@ public class DemoApplication {
         for (Restaurant r : restaurantService.findAll()) {
             System.out.println(r);
         }
-		context.close();
+		//context.close();
 	}
 
 }

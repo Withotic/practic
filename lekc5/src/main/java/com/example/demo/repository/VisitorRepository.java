@@ -10,7 +10,7 @@ public class VisitorRepository {
     private final List<Visitor> visitors = new ArrayList<>();
 
     public void save(Visitor visitor) {
-        visitors.add(new Visitor(visitor.getName(), visitor.getAge(), visitor.isFemale()));
+        visitors.add(visitor);
     }
 
     public void remove(Visitor visitor) {

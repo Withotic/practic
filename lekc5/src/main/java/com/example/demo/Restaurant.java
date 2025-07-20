@@ -2,7 +2,6 @@ package com.example.demo;
 
 import java.math.BigDecimal;
 public class Restaurant {
-    private static long cid=0;
     private long id;
     private String name;
     private String desc="";
@@ -34,20 +33,20 @@ public class Restaurant {
     public int getRateCount() {
         return rateCount;
     }
-    public Restaurant(String name, String desc, ResType type, double avgCheq, BigDecimal rate) {
+    public Restaurant(long id,String name, String desc, ResType type, double avgCheq, BigDecimal rate) {
         this.name = name;
         this.desc = desc;
         this.type = type;
         AvgCheq = avgCheq;
         this.rate = rate;
-        id=cid++;
+        this.id=id;
     }
-    public Restaurant(String name, ResType type, double avgCheq, BigDecimal rate) {
+    public Restaurant(long id,String name, ResType type, double avgCheq, BigDecimal rate) {
         this.name = name;
         this.type = type;
         AvgCheq = avgCheq;
         this.rate = rate;
-        id=cid++;
+        this.id=id;
     }
     @Override
     public String toString() {

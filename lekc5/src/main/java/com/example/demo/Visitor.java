@@ -1,6 +1,5 @@
 package com.example.demo;
 public class Visitor {
-    static long cid=0;
     private long id;
     private String name="Anonymous";
     private byte age;
@@ -17,15 +16,24 @@ public class Visitor {
     public boolean isFemale() {
         return isFemale;
     }
-    public Visitor(String name, byte age, boolean isFemale) {
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setAge(byte age) {
+        this.age = age;
+    }
+    public void setFemale(boolean isFemale) {
+        this.isFemale = isFemale;
+    }
+    public Visitor(long id,String name, byte age, boolean isFemale) {
         this.name = name;
         this.age = age;
         this.isFemale = isFemale;
-        id=cid++;
+        this.id=id;
     }
-    public Visitor(byte age, boolean isFemale) {
+    public Visitor(long id,byte age, boolean isFemale) {
         this.age = age;
         this.isFemale = isFemale;
-        id=cid++;
+        this.id=id;
     }
 }
