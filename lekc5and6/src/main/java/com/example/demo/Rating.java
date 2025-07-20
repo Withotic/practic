@@ -16,6 +16,12 @@ public class Rating {
     public String getText() {
         return text;
     }
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+    public void setText(String text) {
+        this.text = text;
+    }
     public Rating(long idV, long idR, int rate, String text) {
         this.idV = idV;
         this.idR = idR;

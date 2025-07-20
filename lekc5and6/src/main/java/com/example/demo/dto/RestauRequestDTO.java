@@ -1,5 +1,23 @@
 package com.example.demo.dto;
 
-public class RestauRequestDTO {
+import com.example.demo.ResType;
 
+public class RestauRequestDTO {
+    private String name;
+    private String desc;
+    private ResType type;
+    private double avgCheq;
+
+    // геттеры и сеттеры
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDesc() { return desc; }
+    public void setDesc(String desc) { this.desc = desc; }
+
+    public ResType getType() { return type; }
+    public void setType(ResType type) { this.type = type; }
+
+    public double getAvgCheq() { return avgCheq; }
+    public void setAvgCheq(double avgCheq) { this.avgCheq = avgCheq; }
 }

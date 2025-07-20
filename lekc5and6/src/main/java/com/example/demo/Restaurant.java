@@ -30,6 +30,18 @@ public class Restaurant {
     public void setRate(BigDecimal rate){
         this.rate=rate;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+    public void setType(ResType type) {
+        this.type = type;
+    }
+    public void setAvgCheq(double avgCheq) {
+        AvgCheq = avgCheq;
+    }
     public int getRateCount() {
         return rateCount;
     }

@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.Rating;
 import com.example.demo.Restaurant;
+import com.example.demo.dto.RateRequestDTO;
+import com.example.demo.dto.RateResponseDTO;
 import com.example.demo.repository.RatingRepository;
 import com.example.demo.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
@@ -58,5 +60,34 @@ public class RatingService {
                 break;
             }
         }
+    }
+    public List<RateResponseDTO> getAllAsDTO() {
+        return ratingRepository.findAll().stream()
+            .map(r -> new RateResponseDTO(r.getIdV(), r.getIdR(), r.getRate(), r.getText()))
+            .toList();
+    }
+
+    public RateResponseDTO createFromDTO(RateRequestDTO dto) {
+        Rating rating = new Rating(dto.getVisitorId(), dto.getRestaurantId(), dto.getRate(), dto.getText());
+        save(rating); // используем уже существующий метод, который пересчитывает оценку
+        return new RateResponseDTO(rating.getIdV(), rating.getIdR(), rating.getRate(), rating.getText());
+    }
+
+
+    public RateResponseDTO patchRating(long visitorId, long restaurantId, RateRequestDTO dto) {
+        for (Rating rating : ratingRepository.findAll()) {
+            if (rating.getIdV() == visitorId && rating.getIdR() == restaurantId) {
+                    if (dto.getRate() != -1) 
+                        rating.setRate(dto.getRate());
+                    if (dto.getText() != null) 
+                        rating.setText(dto.getText());
+
+                    recalculateRestaurantRating(restaurantId);
+                    return new RateResponseDTO(rating.getIdV(), rating.getIdR(), rating.getRate(), rating.getText());
+
+            }
+        }
+
+        throw new RuntimeException("Отзыв не найден");
     }
 }
