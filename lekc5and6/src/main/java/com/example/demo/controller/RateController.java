@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +38,15 @@ public class RateController {
     }
     @PatchMapping
     @Operation(summary = "Частично обновить отзыв по ID посетителя и ресторана")
-    public RateResponseDTO patch(@RequestParam long visitorId,
-                                @RequestParam long restaurantId,
+    public RateResponseDTO patch(@RequestParam long vId,
+                                @RequestParam long rId,
                                 @RequestBody RateRequestDTO dto) {
-        return service.patchRating(visitorId, restaurantId, dto);
+        return service.patchRating(vId, rId, dto);
+    }
+    @DeleteMapping
+    @Operation(summary = "Удалить отзыв по ID посетителя и ресторана")
+    public void delete(@RequestParam long vId,
+                    @RequestParam long rId) {
+        service.deleteByIds(vId, rId);
     }
 }

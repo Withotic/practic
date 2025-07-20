@@ -39,4 +39,9 @@ public class VisitorController {
     public VisitorResponseDTO patch(@PathVariable long id, @RequestBody VisitorRequestDTO dto) {
         return service.patch(id, dto);
     }
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Удалить посетителя по ID")
+    public void delete(@PathVariable long id) {
+        service.deleteById(id);
+    }
 }

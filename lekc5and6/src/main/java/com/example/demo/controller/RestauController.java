@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,5 +42,10 @@ public class RestauController {
     public RestauResponseDTO patch(@PathVariable long id,
                                     @RequestBody RestauRequestDTO dto) {
         return service.patchRestaurant(id, dto);
+    }
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Удалить ресторан по ID")
+    public void delete(@PathVariable long id) {
+        service.deleteById(id);
     }
 }

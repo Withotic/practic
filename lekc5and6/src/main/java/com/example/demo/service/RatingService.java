@@ -90,4 +90,9 @@ public class RatingService {
 
         throw new RuntimeException("Отзыв не найден");
     }
+    public void deleteByIds(long visitorId, long restaurantId) {
+        List<Rating> all = ratingRepository.findAll();
+        all.removeIf(r -> r.getIdV() == visitorId && r.getIdR() == restaurantId);
+        recalculateRestaurantRating(restaurantId);
+    }
 }

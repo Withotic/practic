@@ -61,4 +61,8 @@ public class RestaurantService {
 
         throw new RuntimeException("Ресторан не найден");
     }
+    public void deleteById(long id) {
+        List<Restaurant> all = repository.findAll();
+        all.removeIf(r -> r.getId() == id);
+    }
 }

@@ -45,20 +45,24 @@ public class VisitorService {
     }
 
     public VisitorResponseDTO patch(long id, VisitorRequestDTO dto) {
-    List<Visitor> all = repository.findAll();
-    for (Visitor visitor : all) {
-        if (visitor.getId() == id) {
-            // применим обновления вручную
-            if (dto.getName() != null)
-                visitor.setName(dto.getName());
-            if (dto.getAge() != -1)
-                visitor.setAge((byte)dto.getAge());
-            if (dto.isFemale() != -1)
-                visitor.setFemale(dto.isFemale()==1);
-            return new VisitorResponseDTO(visitor.getId(), visitor.getName(), visitor.getAge(), visitor.isFemale());
+        List<Visitor> all = repository.findAll();
+        for (Visitor visitor : all) {
+            if (visitor.getId() == id) {
+                // применим обновления вручную
+                if (dto.getName() != null)
+                    visitor.setName(dto.getName());
+                if (dto.getAge() != -1)
+                    visitor.setAge((byte)dto.getAge());
+                if (dto.isFemale() != -1)
+                    visitor.setFemale(dto.isFemale()==1);
+                return new VisitorResponseDTO(visitor.getId(), visitor.getName(), visitor.getAge(), visitor.isFemale());
+            }
         }
-    }
 
-    throw new RuntimeException("Visitor not found");
-}
+        throw new RuntimeException("Visitor not found");
+    }
+    public void deleteById(long id) {
+        List<Visitor> all = repository.findAll();
+        all.removeIf(v -> v.getId() == id);
+    }
 }
