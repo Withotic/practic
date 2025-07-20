@@ -8,6 +8,12 @@ public class RestauRequestDTO {
     private ResType type;
     private double avgCheq;
 
+    public RestauRequestDTO(String name, String desc, ResType type, double avgCheq) {
+        this.name = name;
+        this.desc = desc;
+        this.type = type;
+        this.avgCheq = avgCheq;
+    }
     // геттеры и сеттеры
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

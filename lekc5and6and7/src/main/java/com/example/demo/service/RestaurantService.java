@@ -18,8 +18,8 @@ public class RestaurantService {
         this.repository = repository;
     }
 
-    public void save(Restaurant restaurant) {
-        repository.save(restaurant);
+    public Restaurant save(Restaurant restaurant) {
+        return repository.save(restaurant);
     }
 
     public List<Restaurant> findAll() {

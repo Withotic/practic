@@ -8,6 +8,12 @@ public class VisitorRequestDTO {
     private int age;
     private int isFemale;
 
+    public VisitorRequestDTO(String name, int age, boolean isFemale) {
+        this.name = name;
+        this.age = age;
+        this.isFemale = isFemale?1:0;
+    }
+
     // геттеры и сеттеры
     public String getName() {
         return name;

@@ -6,6 +6,12 @@ public class RateRequestDTO {
     private int rate;
     private String text;
 
+    public RateRequestDTO(long visitorId, long restaurantId, int rate, String text) {
+        this.visitorId = visitorId;
+        this.restaurantId = restaurantId;
+        this.rate = rate;
+        this.text = text;
+    }
     public long getVisitorId() { return visitorId; }
     public void setVisitorId(long visitorId) { this.visitorId = visitorId; }
 
